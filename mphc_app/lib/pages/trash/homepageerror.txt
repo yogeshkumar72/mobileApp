@@ -1,0 +1,400 @@
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter/painting.dart';
+// import 'package:flutter/rendering.dart';
+// import 'package:flutter/widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:mphc_app/pages/login/login.dart';
+
+
+
+
+
+
+
+final List<String> imgList = [
+  // 'assets/slide_1.jpg'
+  'assets/slide/slide_1.jpg',
+  'assets/slide/slide_2.jpg',
+  'assets/slide/slide_3.jpg',
+  'assets/slide/slide_4.jpg',
+  'assets/mphc02.jpg',
+
+ ];
+  // 'assets/mphc_logo.png',
+
+
+
+
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+bool iSHindi = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      resizeToAvoidBottomInset: true,
+      
+      
+      appBar: AppBar(
+        title:Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+
+          children:[
+            Expanded( flex:1,child: Image.asset('assets/mphc_logo.png',width: 55 ,height: 40,fit: BoxFit.contain,)),
+            Flexible(
+              flex:4,
+              child: Container(
+                margin:const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                // color:const Color.fromARGB(53, 255, 193, 7),
+                width: double.infinity,
+                child: Text(
+                  iSHindi?'मध्‍यप्रदेश उच्‍च न्‍यायालय':'High Court of M.P.',
+                  style:const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                    
+                    ),
+                  textAlign: TextAlign.left,
+                  ),
+              ),
+            )
+              ]),
+        // backgroundColor: Color.fromARGB(255, 39, 64, 137),
+        backgroundColor: Colors.white,
+        // backgroundColor:  Color.fromARGB(43, 2, 76, 137),
+        foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+        actions: [
+          // Switch for Changing language
+          Transform.scale(
+            alignment: Alignment.centerRight,
+            
+            scale:0.8,
+            child: Switch(
+              activeTrackColor: const Color.fromARGB(210, 254, 76, 22),
+              inactiveTrackColor: Colors.white,
+              activeColor: Colors.black,
+              inactiveThumbColor: Color.fromARGB(255, 19, 22, 35),
+                // activeTrackColor: Colors.white,
+              value: iSHindi,
+              onChanged:(value){
+                setState(() {
+                  iSHindi = value;
+                  debugPrint('$value');
+                });
+            }),
+          ),
+          IconButton(onPressed: (){}, icon:const Icon(Icons.notifications,size:30)),
+        ],
+      ),
+
+
+
+
+      
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+            margin:const EdgeInsets.all(0),
+            decoration: const BoxDecoration(
+                    gradient:LinearGradient(
+                      begin: Alignment.topCenter,
+                      // end:Alignment.bottomRight,
+                      end:Alignment.bottomCenter,
+                      colors: [
+                        Colors.white,
+                        Color.fromARGB(43, 2, 76, 137),
+                        Color.fromARGB(87, 4, 7, 133),
+                          Colors.white,
+                       ]),
+                  ),
+          child:Column(
+            children:[
+              // const Text("High Cout of Madhya Pradesh"),
+              Flexible(
+                flex:2,
+        
+                child: Container(
+                  width: double.infinity,
+                  // height: 150,
+                  margin:const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    borderRadius:BorderRadius.all(Radius.circular(8)),
+                    // gradient:LinearGradient(
+                    //   begin: Alignment.topCenter,
+                    //   end:Alignment.bottomRight,
+                    //   colors: [
+                    //     Color.fromARGB(176, 164, 193, 217),
+                    //     Color.fromARGB(87, 4, 7, 133)
+                    //    ]),
+                  ),
+                                                                              //-------------------------------slider------------
+                 child: CarouselSlider(
+              options: CarouselOptions(
+                height:200,
+                viewportFraction: 1.0,
+                enlargeCenterPage: false,
+                autoPlay: true,
+              ),
+              items: imgList.map((item) => Container(
+                 margin:const EdgeInsets.all(12),
+                 width: double.infinity,
+                 clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color:Color.fromARGB(255, 255, 255, 255),
+                ),
+                child: Image.asset(item, fit: BoxFit.cover,),
+              )).toList(),
+            ),
+                  
+        
+                             //--------Image carousel----------
+                ),
+              ),
+        
+        
+           
+              Flexible(
+                flex:1,
+                child: Container(
+                    width: double.infinity,
+                    margin:const EdgeInsets.all(12),
+                    decoration: const BoxDecoration(
+                      borderRadius:BorderRadius.all(Radius.circular(8)),
+                      color:Color.fromARGB(150, 255, 255, 255),
+                    ),  
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children:[
+        
+                        BoxIcon(icon: Icons.screenshot_monitor_rounded, title: iSHindi?'ई-डिस्‍प्‍ले बोर्ड':'Display Board',navigate: Text("Display Board"),),
+                        BoxIcon(icon: Icons.document_scanner_outlined, title: iSHindi?'प्रकरणों की स्थिति':'Case Status', navigate: Text("Case Status"),),
+                        BoxIcon(icon: Icons.copy, title:iSHindi?'प्रतिलिपि': 'Copying',navigate: Text("Copying"),),
+                        BoxIcon(icon: Icons.my_library_books_outlined, title:iSHindi?'माय डायरी': 'My Diary',navigate: Text("NO Diary"),),
+        
+                      ]
+        
+                    )
+                  ),
+              ),
+             
+        
+              Expanded(
+                flex:4,
+                child: Container(
+                  
+                  width: double.infinity,
+                  margin:const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    borderRadius:BorderRadius.all(Radius.circular(8)),
+                    color:Color.fromARGB(150, 255, 255, 255),
+                  ),
+                  child:SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children:[
+                        Row(
+                      children: [
+                       BoxIcon(icon: Icons.video_call, title:iSHindi?'VC लिंक्‍स':'VC LINKS',navigate:Text("test"),),
+                      //  BoxIcon(icon: Icons.screenshot_monitor_rounded, title: iSHindi?'ई-डिस्‍प्‍ले बोर्ड':'Display Board',navigate:Text("test"),),
+                       BoxIcon(icon: Icons.list_alt, title: iSHindi?'वाद सूची':'Cause List',navigate:Text("test"),),
+                       BoxIcon(icon: Icons.balance, title: iSHindi?'निर्णय-आदेश':'Judgement\n/Orders',navigate: Text("test"),),
+                    ],),
+                  
+                    Row(children: [
+                       BoxIcon(icon: Icons.edit_road_sharp, title:iSHindi?'केवियट': 'Caveat',navigate: Text("test"),),
+                       BoxIcon(icon: Icons.settings_suggest_sharp, title: iSHindi?' डिफेट्स / डिफॉल्‍ट्स ':'Defects \nDefaults',navigate:Text("test"),),
+                        BoxIcon(icon: Icons.book, title: iSHindi?' ई-पेपरबुक':'E-Paperbook',navigate:Text("test"),),
+                      //  BoxIcon(icon: Icons.my_library_books_outlined, title:iSHindi?'माय डायरी': 'My Diary',navigate:Text("test"),),
+                    ],),
+                    Row(children: [
+                       BoxIcon(icon: Icons.manage_search_outlined, title:iSHindi?'फ्री टेक्‍स्‍ट सर्च': 'Free Text \nSearch',navigate: Text("test"),),
+                       BoxIcon(icon: Icons.payments_outlined, title:iSHindi?'ऑनलाइन कोर्ट शुल्‍क': 'Online \nCourt Fee',navigate: Text("test")),
+                       BoxIcon(icon: Icons.temple_buddhist_outlined, title: iSHindi?'जिला न्‍यायालय':'District \nCourt',navigate: Text("test"),),
+                    ],),
+                    
+                      Row(children: [
+                       BoxIcon(icon: Icons.groups_2_outlined, title:iSHindi?'रोस्‍टर':'Roaster',navigate: Text("test"),),
+                       BoxIcon(icon: Icons.device_hub_outlined, title: iSHindi?'साईटमैप':'Sitemap',navigate: Text("test"),),
+                       BoxIcon(icon: Icons.manage_search_outlined, title:iSHindi?'आईएलआर जर्नल':'ILR \nJournal',navigate: Text("test")),
+                    ],),
+                   
+                    
+                      ]
+                    ),
+                  )
+                ),
+              ),
+        
+                Flexible(
+                flex:1,
+                child: Container(
+                    width: double.infinity,
+                    margin:const EdgeInsets.all(12),
+                    decoration: const BoxDecoration(
+                      borderRadius:BorderRadius.all(Radius.circular(8)),
+                      color:Color.fromARGB(150, 255, 255, 255),
+                    ),
+                  ),
+              ),
+             
+             
+            ]
+          )
+        ),
+
+        
+      ),
+
+
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Color.fromARGB(255, 255, 255, 255), // Set color to transparent
+          ),
+          child:const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:[
+                Icon(Icons.home),
+                Icon(Icons.calendar_month),
+                Icon(Icons.qr_code),
+                Icon(Icons.info),
+            ]
+          ),
+
+
+          
+
+                
+        ),
+      ),
+    
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------------------Icons of Home Page ---------------------------------------
+
+class BoxIcon extends StatefulWidget {
+  final IconData icon;
+  final String title;
+  final Widget navigate;
+    const BoxIcon({required this.icon, required this.title, required this.navigate,super.key});
+  @override
+  State<BoxIcon> createState() => _BoxIconState();
+}
+class _BoxIconState extends State<BoxIcon> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap:() =>Navigator.push(context, MaterialPageRoute(builder: (context)=> widget.navigate)),
+        child: Container(
+                  // margin: const EdgeInsets.all(4),
+                  decoration:  const BoxDecoration(
+                    
+                    // color:const Color.fromARGB(255, 255, 255, 255),
+                    // color:Color.fromARGB(255, 255, 255, 255),
+                    // gradient:  LinearGradient(
+                    //   // transform:GradientRotation(320),
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomCenter,
+                    //   colors:[
+                    //     Color.fromARGB(47, 182, 197, 251),
+                    //     Color.fromARGB(41, 142, 191, 255),
+                    //     Color.fromARGB(47, 0, 55, 255),
+               
+                    //     // Colors.white,
+                    //     // Color.fromARGB(255, 160, 166, 255),
+                    //   ]
+                    // ),
+                    // borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    // border:Border(left:BorderSide(width: 0.5,color:Color.fromARGB(255, 2, 66, 118))),
+                    // border:Border.all(width:0.5,color:Color.fromARGB(255, 44, 46, 172)),
+                    
+                    ),
+                  height: 80,
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(widget.icon, size:30,color:Theme.of(context).colorScheme.primary,),                    
+                      Text(widget.title,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color:Theme.of(context).colorScheme.primary,),textAlign: TextAlign.center, ),
+                    ],
+                    )
+                  ),
+      ),
+              );
+  }
+  // backgroundColor: const Color.fromARGB(255, 16, 55, 124),
+}
+
+// Future<void> _launchUrl() async {
+//   if (!await launchUrl(url)) {
+//     throw Exception('Could not launch $url');
+//   }
+// }
+
+
+
+
+//  Row(
+          //         children: [
+          //          BoxIcon(icon: Icons.video_call, title:iSHindi?'VC लिंक्‍स':'VC LINKS',navigate:const VCUserForm(),),
+          //          BoxIcon(icon: Icons.screenshot_monitor_rounded, title: iSHindi?'ई-डिस्‍प्‍ले बोर्ड':'Display Board',navigate: DisplayBoardForm(),),
+          //          BoxIcon(icon: Icons.balance, title: iSHindi?'निर्णय-आदेश':'Judgement\n/Orders',navigate: JudgementOrderForm(),),
+          //       ],),
+          //       Row(
+          //         children: [
+          //           BoxIcon(icon: Icons.document_scanner_outlined, title: iSHindi?'प्रकरणों की स्थिति':'Case Status', navigate: CaseStatusForm(),),
+          //           BoxIcon(icon: Icons.list_alt, title: iSHindi?'वाद सूची':'Cause List',navigate:CauseListForm(),),
+          //           BoxIcon(icon: Icons.copy, title:iSHindi?'प्रतिलिपि': 'Copying',navigate: CopyingForm(),),
+          //       ],),
+          //       Row(children: [
+          //          BoxIcon(icon: Icons.edit_road_sharp, title:iSHindi?'केवियट': 'Caveat',navigate: CaveatForm(),),
+          //          BoxIcon(icon: Icons.settings_suggest_sharp, title: iSHindi?' डिफेट्स / डिफॉल्‍ट्स ':'Defects \nDefaults',navigate:DefectsDefaultsForm(),),
+          //          BoxIcon(icon: Icons.my_library_books_outlined, title:iSHindi?'माय डायरी': 'My Diary',navigate: MyDiaryTab(),),
+          //       ],),
+          //       Row(children: [
+          //          BoxIcon(icon: Icons.manage_search_outlined, title:iSHindi?'फ्री टेक्‍स्‍ट सर्च': 'Free Text \nSearch',navigate: FreeTSForm(),),
+          //          BoxIcon(icon: Icons.payments_outlined, title:iSHindi?'ऑनलाइन कोर्ट शुल्‍क': 'Online \nCourt Fee',navigate: CourtFeeType()),
+          //          BoxIcon(icon: Icons.temple_buddhist_outlined, title: iSHindi?'जिला न्‍यायालय':'District \nCourt',navigate: CaseStatusForm(),),
+          //       ],),
