@@ -8,9 +8,7 @@ class Vishnu extends StatelessWidget {
     return Scaffold(
       body:Container(
         child:const Text("hello vishnu"),
-        child:const Text("hello vishnu"),
-        child:const Text("hello vishnu"),
-        child:const Text("hello vishnu"),
+       
       )
     );
   }
